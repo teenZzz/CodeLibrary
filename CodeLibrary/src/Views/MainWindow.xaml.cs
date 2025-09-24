@@ -20,11 +20,7 @@ public partial class MainWindow : Window
 
     private void Close_Click(object sender, RoutedEventArgs e)
     {
-        // Закрыть окно (если это MainWindow и ShutdownMode=OnMainWindowClose — приложение завершится)
-        this.Close();
-
-        // Если хочешь закрывать приложение всегда, даже при открытых окнах:
-        // Application.Current.Shutdown();
+        Application.Current.Shutdown();
     }
     
     private void SearchMouseDown(object sender, MouseButtonEventArgs e)

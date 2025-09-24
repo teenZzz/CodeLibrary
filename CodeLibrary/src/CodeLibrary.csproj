@@ -38,4 +38,17 @@
       </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\search.png" />
+      <Resource Include="Resources\search.png" />
+      <None Remove="Resources\btn_ico.png" />
+      <Resource Include="Resources\btn_ico.png" />
+      <None Remove="Resources\plus_icon.png" />
+      <Resource Include="Resources\plus_icon.png" />
+      <None Remove="Resources\close.png" />
+      <Resource Include="Resources\close.png" />
+      <None Remove="Resources\minimize.png" />
+      <Resource Include="Resources\minimize.png" />
+    </ItemGroup>
+
 </Project>

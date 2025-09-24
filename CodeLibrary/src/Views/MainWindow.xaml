@@ -185,5 +185,54 @@
                 </StackPanel>
             </Button>
         </Grid>
+        
+        <Grid Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120 0 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Border Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Название" FontSize="20" Width="200"/>
+                    <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
+                    <TextBlock Text="Автор" FontSize="20" Width="200" Margin="10 0 0 0"/>
+                    <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
+                    <TextBlock Text="Тэг" FontSize="20" Width="200" Margin="10 0 0 0"/>
+                    <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
+                    <TextBlock Text="Описание" FontSize="20" Width="200" Margin="10 0 0 0"/>
+                    <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
+                    <TextBlock Text="Статус" FontSize="20" Width="200" Margin="10 0 0 0"/>
+                </StackPanel>
+            </Border>
+            
+            <ListView Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="12346666666666666666666" Margin="0 0 0 0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0 10 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <TextBlock Grid.Column="0" Text="CLR VIA C#YUIYUIIUYyuiyuiyuiyuiyuiyuiui" TextWrapping="NoWrap" Width="200" Margin="0 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Column="1" Text="Testyuiuyiuuuuuuuuuuuuuuuuuuuuuyui" TextWrapping="NoWrap" Width="200" Margin="15 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Column="2" Text="Testyuiyuiyuiyuiuyiuuyiuyiuyyuiuyiuyiuy" TextWrapping="NoWrap" Width="200" Margin="20 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Column="3" Text="Testiuuyuiuyiuyiuyiuyiuyiuyiuyiuuyiuy" TextWrapping="NoWrap" Width="200" Margin="25 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Column="4" Text="Testiuyiuyiuuyiuyiuyiuyiuyiuyiuyiuyiuy" TextWrapping="NoWrap" Width="200" Margin="20 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Window>

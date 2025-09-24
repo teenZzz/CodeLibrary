@@ -10,13 +10,13 @@ public class BookTag
 
     private BookTag(Guid book, Guid tag)
     {
-        Book = book;
-        Tag = tag;
+        BookId = book;
+        TagId = tag;
     }
 
-    public Guid Book { get; private set; }
+    public Guid BookId { get; private set; }
 
-    public Guid Tag { get; private set; }
+    public Guid TagId { get; private set; }
 
     public static Result<BookTag> Create(Guid book, Guid tag)
     {

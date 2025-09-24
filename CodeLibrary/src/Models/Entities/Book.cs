@@ -5,23 +5,23 @@ namespace CodeLibrary.Models;
 
 public class Book
 {
-    private readonly  List<Author> _authors;
-    private readonly  List<Tag> _tags;
+    private readonly  List<BookAuthor> _bookAuthors;
+    private readonly  List<BookTag> _bookTags;
     
     //EF Core
     private Book() { }
     
     private Book(
         Name name, 
-        List<Author> authors, 
-        List<Tag> tags, 
+        List<BookAuthor> bookAuthors, 
+        List<BookTag> bookTags, 
         Description? description, 
         Guid statusId)
     {
         Id = Guid.NewGuid();
         Name = name;
-        _authors = authors;
-        _tags = tags;
+        _bookAuthors = bookAuthors;
+        _bookTags = bookTags;
         Description = description;
         StatusId = statusId;
     }
@@ -30,9 +30,9 @@ public class Book
     
     public Name Name { get; private set; }
     
-    public IReadOnlyList<Author> Authors => _authors;
+    public IReadOnlyList<BookAuthor> BookAuthors => _bookAuthors;
     
-    public IReadOnlyList<Tag> Tags => _tags;
+    public IReadOnlyList<BookTag> BookTags => _bookTags;
 
     public Description? Description { get; private set; }
 
@@ -40,12 +40,12 @@ public class Book
 
     public static Result<Book> Create(
         Name name, 
-        List<Author> authors, 
-        List<Tag> tags, 
+        List<BookAuthor> bookAuthors, 
+        List<BookTag> bookTags, 
         Description? description, 
         Guid statusId)
     {
-        var obj = new Book(name, authors, tags, description, statusId);
+        var obj = new Book(name, bookAuthors, bookTags, description, statusId);
         return Result.Success(obj);
     }
 

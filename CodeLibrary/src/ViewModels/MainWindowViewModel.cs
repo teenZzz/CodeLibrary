@@ -13,10 +13,12 @@ public class MainWindowViewModel : ViewModelBase
 {
     private readonly IBookQueries _bookQueries;
     private readonly CreateBookHandler _createBookHandler;
-    public MainWindowViewModel(IBookQueries bookQueries, CreateBookHandler createBookHandler)
+    private readonly DeleteBookHandler _deleteBookHandler;
+    public MainWindowViewModel(IBookQueries bookQueries, CreateBookHandler createBookHandler, DeleteBookHandler deleteBookHandler)
     {
         _bookQueries = bookQueries;
         _createBookHandler = createBookHandler;
+        _deleteBookHandler = deleteBookHandler;
 
         SearchCommand = new RelayCommand(ExecuteSearch, () => true);
         AddBookCommand = new RelayCommand(ExecuteAddBook, () => true);
@@ -84,11 +86,14 @@ public class MainWindowViewModel : ViewModelBase
         return Task.CompletedTask;
     }
 
-    private Task ExecuteDeleteBook(BookDto? book)
+    private async Task ExecuteDeleteBook(BookDto? book)
     {
-        if (book is null) return Task.CompletedTask;
-        Books.Remove(book);
-        MessageBox.Show($"Deleted: {book.Title}");
-        return Task.CompletedTask;
+        if (book is null) return;
+
+        var result = await _deleteBookHandler.Handle(book.Id);
+        if (result.IsSuccess)
+            Books.Remove(book);
+        else
+            MessageBox.Show(result.Error);
     }
 }

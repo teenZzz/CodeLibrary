@@ -6,6 +6,7 @@ using CodeLibrary.Postgres;
 using CodeLibrary.Postgres.Repositories;
 using CodeLibrary.UseCases.Handlers;
 using CodeLibrary.UseCases.InterfacesRepositories;
+using CodeLibrary.UseCases.Queries;
 using CodeLibrary.ViewModels;
 using CodeLibrary.Views;
 using Microsoft.EntityFrameworkCore;
@@ -50,6 +51,8 @@ public partial class App : Application
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
+        
+        services.AddScoped<IBookQueries, BookQueries>();
 
         // Хэндлеры/UseCases
         services.AddScoped<CreateAuthorHandler>();

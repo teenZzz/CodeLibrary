@@ -5,8 +5,244 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeLibrary.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:vm="clr-namespace:CodeLibrary.ViewModels"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Title="MainWindow" Height="800" Width="1280">
+    <Window.Resources>
+        <Style x:Key="TextBoxNoChrome" TargetType="TextBox">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <!-- Без внешней Border и без триггеров -->
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Background="{TemplateBinding Background}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!--Панель управления-->
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <Button Width="20" Height="20" Background="#141414" Click="Minimize_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Border2"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Наведение -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border2" Property="Background" Value="#2A2A2A"/>
+                                </Trigger>
 
+                                <!-- Нажатие -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="Border2" Property="Background" Value="#3A3A3A"/>
+                                </Trigger>
+
+                                <!-- Выключена -->
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="Border2" Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Width="16" Height="16" Source="../Resources/minimize.png"/>
+                </Button>
+                <Button Width="20" Height="20" Background="#141414" Click="Close_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Border3"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Наведение -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border3" Property="Background" Value="#2A2A2A"/>
+                                </Trigger>
+
+                                <!-- Нажатие -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="Border3" Property="Background" Value="#3A3A3A"/>
+                                </Trigger>
+
+                                <!-- Выключена -->
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="Border3" Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Width="16" Height="16" Source="../Resources/close.png"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <!--Верхняя панель программы-->
+        <Grid Grid.Row="1" >
+            <!--Лого-->
+            <TextBlock Text="CodeLibrary" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="50" FontWeight="Bold" Margin="16 0 0 0"/>
+            
+            <!--Поисковик и кнопка-->
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+                <Border BorderThickness="1" BorderBrush="#E4E5E7" CornerRadius="12" Width="400" Height="40">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="../Resources/search.png" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
+                        <TextBlock Grid.Column="1" x:Name="SearchBlock" VerticalAlignment="Center" HorizontalAlignment="Left" MouseDown="SearchMouseDown" Text="Поиск" Foreground="#72767B" Margin="10 0 0 0" FontSize="16"/>
+                        <TextBox Grid.Column="1" x:Name="SearchBox" Style="{StaticResource TextBoxNoChrome}" TextChanged="SearchTextChanged" VerticalAlignment="Center" BorderBrush="Transparent"  Background="Transparent" Margin="10 0 10 0" FontSize="16"/>
+                    </Grid>
+                </Border>
+                <Button Width="40" Height="40" Command="{Binding SearchCommand}" Background="#141414" BorderThickness="0" BorderBrush="Transparent" Margin="10 0 0 0">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Border"
+                                    CornerRadius="12"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <!-- Наведение -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#2A2A2A"/>
+                                </Trigger>
+
+                                <!-- Нажатие -->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="Border" Property="Background" Value="#3A3A3A"/>
+                                </Trigger>
+
+                                <!-- Выключена -->
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Source="../Resources/btn_ico.png" Width="24" Height="24"/>
+                </Button>
+            </StackPanel>
+            
+            <!--Кнопка добавления-->
+            <Button Width="200" Command="{Binding AddBookCommand}" HorizontalAlignment="Right" Height="40" Background="#141414" BorderThickness="0" BorderBrush="Transparent" Margin="0 0 50 0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border"
+                                CornerRadius="12"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!-- Наведение -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#2A2A2A"/>
+                            </Trigger>
+
+                            <!-- Нажатие -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#3A3A3A"/>
+                            </Trigger>
+
+                            <!-- Выключена -->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../Resources/plus_icon.png" Width="24" Height="24"/>
+                    <TextBlock Text="Добавить книгу" Foreground="White" FontSize="16" Margin="10 0 10 0"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+        
+        <!--Блок со списком-->
+        <Grid Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120 0 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!--Поля списка-->
+            <Border Grid.Row="0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Название" FontSize="20" Width="200" Margin="5 0 0 0"/>
+                    <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
+                    <TextBlock Text="Автор" FontSize="20" Width="200" Margin="10 0 0 0"/>
+                    <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
+                    <TextBlock Text="Тэг" FontSize="20" Width="200" Margin="10 0 0 0"/>
+                    <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
+                    <TextBlock Text="Описание" FontSize="20" Width="200" Margin="10 0 0 0"/>
+                    <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
+                    <TextBlock Text="Статус" FontSize="20" Width="200" Margin="10 0 0 0"/>
+                </StackPanel>
+            </Border>
+            
+            <!--Список книг-->
+            <ListView Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding Books}" Margin="0 0 0 0" BorderBrush="Transparent">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                
+                <!--Вид элемента списка-->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0 10 0 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" Width="200" Margin="0 10 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Author}" TextWrapping="NoWrap" Width="200" Margin="15 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Tag}" TextWrapping="NoWrap" Width="200" Margin="20 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Description}" TextWrapping="NoWrap" Width="200" Margin="25 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Status}" TextWrapping="NoWrap" Width="200" Margin="20 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <Border Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Height="1" Width="1080" Background="#D9D9D9" Margin="0 10 0 0"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
     </Grid>
 </Window>

@@ -188,7 +188,7 @@
         </Grid>
         
         <!--Блок со списком-->
-        <Grid Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120 0 0 0">
+        <Grid Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120 20 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -216,6 +216,40 @@
                         <VirtualizingStackPanel/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <!-- 1) Сохраняем VM в Tag контейнера строки -->
+                        <Setter Property="Tag"
+                                Value="{Binding DataContext, RelativeSource={RelativeSource AncestorType=ListView}}"/>
+
+                        <!-- 2) Контекстное меню -->
+                        <Setter Property="ContextMenu">
+                            <Setter.Value>
+                                <ContextMenu>
+                                    <MenuItem Header="Редактировать"
+                                              Command="{Binding PlacementTarget.Tag.EditBookCommand,
+                                                    RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                              CommandParameter="{Binding PlacementTarget.DataContext,
+                                                             RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+                                        <MenuItem.Icon>
+                                            <Image Source="/Resources/edit.png" Width="16" Height="16"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+
+                                    <MenuItem Header="Удалить"
+                                              Command="{Binding PlacementTarget.Tag.DeleteBookCommand,
+                                                    RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                              CommandParameter="{Binding PlacementTarget.DataContext,
+                                                             RelativeSource={RelativeSource AncestorType=ContextMenu}}">
+                                        <MenuItem.Icon>
+                                            <Image Source="/Resources/delete.png" Width="16" Height="16"/>
+                                        </MenuItem.Icon>
+                                    </MenuItem>
+                                </ContextMenu>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
                 
                 <!--Вид элемента списка-->
                 <ListView.ItemTemplate>

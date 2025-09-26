@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodeLibrary.Views"
         mc:Ignorable="d"
+        xmlns:vm="clr-namespace:CodeLibrary.ViewModels"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
@@ -118,7 +119,7 @@
                         <TextBox Grid.Column="1" x:Name="SearchBox" Style="{StaticResource TextBoxNoChrome}" TextChanged="SearchTextChanged" VerticalAlignment="Center" BorderBrush="Transparent"  Background="Transparent" Margin="10 0 10 0" FontSize="16"/>
                     </Grid>
                 </Border>
-                <Button Width="40" Height="40" Background="#141414" BorderThickness="0" BorderBrush="Transparent" Margin="10 0 0 0">
+                <Button Width="40" Height="40" Command="{Binding SearchCommand}" Background="#141414" BorderThickness="0" BorderBrush="Transparent" Margin="10 0 0 0">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="Border"
@@ -151,7 +152,7 @@
             </StackPanel>
             
             <!--Кнопка добавления-->
-            <Button Width="200" HorizontalAlignment="Right" Height="40" Background="#141414" BorderThickness="0" BorderBrush="Transparent" Margin="0 0 50 0">
+            <Button Width="200" Command="{Binding AddBookCommand}" HorizontalAlignment="Right" Height="40" Background="#141414" BorderThickness="0" BorderBrush="Transparent" Margin="0 0 50 0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="Border"
@@ -186,15 +187,17 @@
             </Button>
         </Grid>
         
+        <!--Блок со списком-->
         <Grid Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120 0 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
+            <!--Поля списка-->
             <Border Grid.Row="0">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Название" FontSize="20" Width="200"/>
+                    <TextBlock Text="Название" FontSize="20" Width="200" Margin="5 0 0 0"/>
                     <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
                     <TextBlock Text="Автор" FontSize="20" Width="200" Margin="10 0 0 0"/>
                     <Border Height="20" Width="1" Background="Black" Margin="10 5 0 0"/>
@@ -206,13 +209,15 @@
                 </StackPanel>
             </Border>
             
-            <ListView Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="12346666666666666666666" Margin="0 0 0 0">
+            <!--Список книг-->
+            <ListView Grid.Row="1" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding Books}" Margin="0 0 0 0" BorderBrush="Transparent">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel/>
                     </ItemsPanelTemplate>
                 </ListView.ItemsPanel>
                 
+                <!--Вид элемента списка-->
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="0 10 0 0">
@@ -223,12 +228,17 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
                             
-                            <TextBlock Grid.Column="0" Text="CLR VIA C#YUIYUIIUYyuiyuiyuiyuiyuiyuiui" TextWrapping="NoWrap" Width="200" Margin="0 0 0 0" VerticalAlignment="Center" FontSize="14"/>
-                            <TextBlock Grid.Column="1" Text="Testyuiuyiuuuuuuuuuuuuuuuuuuuuuyui" TextWrapping="NoWrap" Width="200" Margin="15 0 0 0" VerticalAlignment="Center" FontSize="14"/>
-                            <TextBlock Grid.Column="2" Text="Testyuiyuiyuiyuiuyiuuyiuyiuyyuiuyiuyiuy" TextWrapping="NoWrap" Width="200" Margin="20 0 0 0" VerticalAlignment="Center" FontSize="14"/>
-                            <TextBlock Grid.Column="3" Text="Testiuuyuiuyiuyiuyiuyiuyiuyiuyiuuyiuy" TextWrapping="NoWrap" Width="200" Margin="25 0 0 0" VerticalAlignment="Center" FontSize="14"/>
-                            <TextBlock Grid.Column="4" Text="Testiuyiuyiuuyiuyiuyiuyiuyiuyiuyiuyiuy" TextWrapping="NoWrap" Width="200" Margin="20 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Title}" TextWrapping="NoWrap" Width="200" Margin="0 10 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Author}" TextWrapping="NoWrap" Width="200" Margin="15 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Tag}" TextWrapping="NoWrap" Width="200" Margin="20 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Description}" TextWrapping="NoWrap" Width="200" Margin="25 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Status}" TextWrapping="NoWrap" Width="200" Margin="20 0 0 0" VerticalAlignment="Center" FontSize="14"/>
+                            <Border Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Height="1" Width="1080" Background="#D9D9D9" Margin="0 10 0 0"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

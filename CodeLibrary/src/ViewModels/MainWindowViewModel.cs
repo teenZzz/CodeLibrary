@@ -23,7 +23,6 @@ public class MainWindowViewModel : ViewModelBase
         SearchCommand = new RelayCommand(ExecuteSearch, () => true);
         AddBookCommand = new RelayCommand(ExecuteAddBook, () => true);
         
-        EditBookCommand = new RelayCommand<BookDto?>(ExecuteEditBook, b => b != null);
         DeleteBookCommand = new RelayCommand<BookDto?>(ExecuteDeleteBook, b => b != null);
 
         _ = LoadAsync();
@@ -34,8 +33,6 @@ public class MainWindowViewModel : ViewModelBase
     public ICommand SearchCommand { get; }
 
     public ICommand AddBookCommand { get; }
-    
-    public ICommand EditBookCommand { get; }
     
     public ICommand DeleteBookCommand { get; }
 
@@ -76,14 +73,6 @@ public class MainWindowViewModel : ViewModelBase
         Books.Clear();
         foreach (var dto in items)
             Books.Add(dto);
-    }
-    
-    
-    private Task ExecuteEditBook(BookDto? book)
-    {
-        if (book is null) return Task.CompletedTask;
-        MessageBox.Show($"Edit: {book.Title}");
-        return Task.CompletedTask;
     }
 
     private async Task ExecuteDeleteBook(BookDto? book)

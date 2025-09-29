@@ -116,7 +116,7 @@
                         </Grid.ColumnDefinitions>
                         <Image Grid.Column="0" Source="../Resources/search.png" Width="24" Height="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0 0 0"/>
                         <TextBlock Grid.Column="1" x:Name="SearchBlock" VerticalAlignment="Center" HorizontalAlignment="Left" MouseDown="SearchMouseDown" Text="Поиск по названию книги" Foreground="#72767B" Margin="10 0 0 0" FontSize="16"/>
-                        <TextBox Grid.Column="1" x:Name="SearchBox" Style="{StaticResource TextBoxNoChrome}" TextChanged="SearchTextChanged" VerticalAlignment="Center" BorderBrush="Transparent"  Background="Transparent" Margin="10 0 10 0" FontSize="16"/>
+                        <TextBox Grid.Column="1" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" Style="{StaticResource TextBoxNoChrome}" TextChanged="SearchTextChanged" VerticalAlignment="Center" BorderBrush="Transparent"  Background="Transparent" Margin="10 0 10 0" FontSize="16"/>
                     </Grid>
                 </Border>
                 <Button Width="40" Height="40" Command="{Binding SearchCommand}" Background="#141414" BorderThickness="0" BorderBrush="Transparent" Margin="10 0 0 0">

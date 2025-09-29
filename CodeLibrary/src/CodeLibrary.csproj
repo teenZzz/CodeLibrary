@@ -45,6 +45,10 @@
       <Resource Include="Resources\close.png" />
       <None Remove="Resources\minimize.png" />
       <Resource Include="Resources\minimize.png" />
+      <None Remove="Resources\delete.png" />
+      <Resource Include="Resources\delete.png" />
+      <None Remove="Resources\edit.png" />
+      <Resource Include="Resources\edit.png" />
     </ItemGroup>
 
 </Project>

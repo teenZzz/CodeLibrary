@@ -3,6 +3,7 @@ using CodeLibrary.Models;
 using CodeLibrary.Models.DTOs;
 using CodeLibrary.UseCases.InterfacesRepositories;
 using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace CodeLibrary.Postgres.Repositories;
@@ -35,5 +36,19 @@ public class BookRepository : IBookRepository
             return Result.Failure<Guid>(ex.Message);
         }
     }
-    
+
+    public async Task<Result> DeleteAsync(Guid id)
+    {
+        var affected = await _dbContext.Books
+            .Where(b => b.Id == id)
+            .ExecuteDeleteAsync();
+
+        return affected > 0 ? Result.Success()
+            : Result.Failure("Книга не найдена");
+    }
+
+    public Task<Book?> GetByIdAsync(Guid id)
+    {
+        return _dbContext.Books.AsNoTracking().FirstOrDefaultAsync(b => b.Id == id);
+    }
 }

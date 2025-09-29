@@ -20,6 +20,7 @@ public class BookQueries : IBookQueries
             .AsNoTracking()
             .Select(b => new
             {
+                Id = b.Id,
                 Title = b.Name.Value,
                 Description = b.Description != null ? b.Description.Value : null,
                 Status = _db.Statuses
@@ -48,6 +49,7 @@ public class BookQueries : IBookQueries
 
         return rows.Select(r => new BookDto
         {
+            Id = r.Id,
             Title = r.Title,
             Author = string.Join(", ", r.Authors),
             Tag = string.Join(", ", r.Tags),
@@ -63,6 +65,7 @@ public class BookQueries : IBookQueries
             .Where(b => b.Id == id)
             .Select(b => new
             {
+                Id = b.Id,
                 Title = b.Name.Value,
                 Description = b.Description != null ? b.Description.Value : null,
                 Status = _db.Statuses
@@ -93,6 +96,7 @@ public class BookQueries : IBookQueries
 
         return new BookDto
         {
+            Id = row.Id,
             Title = row.Title,
             Author = string.Join(", ", row.Authors),
             Tag = string.Join(", ", row.Tags),

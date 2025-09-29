@@ -51,16 +51,21 @@ public partial class App : Application
         services.AddScoped<IBookRepository, BookRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IStatusRepository, StatusRepository>();
+        services.AddScoped<IBookRepository, BookRepository>();
         
         services.AddScoped<IBookQueries, BookQueries>();
+        services.AddScoped<ILoadQueries, LoadQueries>();
 
         // Хэндлеры/UseCases
         services.AddScoped<CreateAuthorHandler>();
         services.AddScoped<CreateBookHandler>();
+        services.AddScoped<DeleteBookHandler>();
         
-        // VM и окно (если используешь DI для UI)
+        // VM и окно
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MainWindow>();
+        services.AddTransient<AddBookWindowViewModel>();
+        services.AddTransient<AddBookWindow>();
         
         // Собираем провайдер
         Services = services.BuildServiceProvider();

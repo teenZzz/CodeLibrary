@@ -60,9 +60,11 @@ public partial class App : Application
         services.AddScoped<CreateBookHandler>();
         services.AddScoped<DeleteBookHandler>();
         
-        // VM и окно (если используешь DI для UI)
+        // VM и окно
         services.AddTransient<MainWindowViewModel>();
         services.AddTransient<MainWindow>();
+        services.AddTransient<AddBookWindowViewModel>();
+        services.AddTransient<AddBookWindow>();
         
         // Собираем провайдер
         Services = services.BuildServiceProvider();

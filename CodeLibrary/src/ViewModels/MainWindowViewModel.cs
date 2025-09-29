@@ -6,16 +6,21 @@ using CodeLibrary.Models.DTOs;
 using CodeLibrary.Models.Requests;
 using CodeLibrary.UseCases.Handlers;
 using CodeLibrary.UseCases.InterfacesRepositories;
+using CodeLibrary.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CodeLibrary.ViewModels;
 
 public class MainWindowViewModel : ViewModelBase
 {
+    private readonly IServiceProvider _services;
     private readonly IBookQueries _bookQueries;
     private readonly CreateBookHandler _createBookHandler;
     private readonly DeleteBookHandler _deleteBookHandler;
-    public MainWindowViewModel(IBookQueries bookQueries, CreateBookHandler createBookHandler, DeleteBookHandler deleteBookHandler)
+    public MainWindowViewModel(IServiceProvider services, IBookQueries bookQueries, CreateBookHandler createBookHandler, DeleteBookHandler deleteBookHandler)
     {
+        _services = services;
+        
         _bookQueries = bookQueries;
         _createBookHandler = createBookHandler;
         _deleteBookHandler = deleteBookHandler;
@@ -43,7 +48,7 @@ public class MainWindowViewModel : ViewModelBase
 
     private async Task ExecuteAddBook()
     {
-        var request = new CreateBookRequest("CLR VIA C#",
+        /*var request = new CreateBookRequest("CLR VIA C#",
             "Рихтер",
             "Джеффри",
             "",
@@ -64,7 +69,18 @@ public class MainWindowViewModel : ViewModelBase
         {
             MessageBox.Show(result.Error);
         }
+        */
+
+        var window = _services.GetRequiredService<AddBookWindow>();
+        window.Owner = Application.Current?.MainWindow;
         
+        if (window.ShowDialog() == true)
+        {
+            var vm = (AddBookWindowViewModel)window.DataContext;
+            if (vm.CreatedBook != null)
+                Books.Add(vm.CreatedBook);
+        }
+
     }
     
     private async Task LoadAsync()

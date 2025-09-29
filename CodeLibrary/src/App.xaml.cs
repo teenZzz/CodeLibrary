@@ -54,6 +54,7 @@ public partial class App : Application
         services.AddScoped<IBookRepository, BookRepository>();
         
         services.AddScoped<IBookQueries, BookQueries>();
+        services.AddScoped<ILoadQueries, LoadQueries>();
 
         // Хэндлеры/UseCases
         services.AddScoped<CreateAuthorHandler>();

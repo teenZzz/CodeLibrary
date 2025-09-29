@@ -29,37 +29,37 @@
         
         <StackPanel Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Название книги :" FontSize="18" Margin="16 0 0  0" Width="160"/>
-            <TextBox Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
+            <TextBox Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
         </StackPanel>
         
         <StackPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Фамилия автора :" FontSize="18" Margin="16 0 0  0" Width="160"/>
-            <TextBox Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
+            <TextBox Text="{Binding AuthorSurname, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
         </StackPanel>
         
         <StackPanel Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Имя Автора :" FontSize="18" Margin="16 0 0  0" Width="160"/>
-            <TextBox Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
+            <TextBox Text="{Binding AuthorFirstName, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
         </StackPanel>
         
         <StackPanel Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Отчество автора* :" FontSize="18" Margin="16 0 0  0" Width="160"/>
-            <TextBox Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
+            <TextBox Text="{Binding AuthorPatronymic, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
         </StackPanel>
         
         <StackPanel Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Выберите тэг :" FontSize="18" Margin="16 0 0  0" Width="160"/>
-            <TextBox Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
+            <ComboBox ItemsSource="{Binding Tags}" SelectedValue="{Binding Tag, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" Height="25" Margin="10 0 0 0"/>
         </StackPanel>
         
         <StackPanel Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Описание* :" FontSize="18" Margin="16 0 0  0" Width="160"/>
-            <TextBox Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
+            <TextBox Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
         </StackPanel>
         
         <StackPanel Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Horizontal">
             <TextBlock Text="Статус :" FontSize="18" Margin="16 0 0  0" Width="160"/>
-            <TextBox Width="400" Height="25" Margin="10 0 0 0 " FontSize="16"/>
+            <ComboBox ItemsSource="{Binding Statuses}" SelectedValue="{Binding Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150" Height="25" Margin="10 0 0 0"/>
         </StackPanel>
         
         <Button Grid.Row="9" Command="{Binding AddBookCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Width="180" Height="40" Content="Добавить" FontSize="18" Foreground="White" Background="#141414" BorderThickness="0" BorderBrush="Transparent">

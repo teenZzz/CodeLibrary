@@ -17,9 +17,6 @@ using Microsoft.Extensions.Logging;
 
 namespace CodeLibrary;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
 public partial class App : Application
 {
     public static IServiceProvider Services { get; private set; } = null!;

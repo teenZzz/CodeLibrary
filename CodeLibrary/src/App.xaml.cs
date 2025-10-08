@@ -53,6 +53,7 @@ public partial class App : Application
         services.AddScoped<IStatusRepository, StatusRepository>();
         services.AddScoped<IBookRepository, BookRepository>();
         
+        //Queries
         services.AddScoped<IBookQueries, BookQueries>();
         services.AddScoped<ILoadQueries, LoadQueries>();
 
